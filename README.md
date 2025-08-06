@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # 🔒 SSH Tunnel Client
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
@@ -512,3 +513,7 @@ curl -sSL https://raw.githubusercontent.com/reza-ygb/ssh-tunnel-client/main/one_
 *Made with ❤️ for the Linux community*
 
 </div>
+=======
+# ssh-tunnel-client
+Redirect all network traffic through SSH – lightweight tunnel client
+>>>>>>> 9e24387f80673a842a8a7c8398b8a94ec5e71774
