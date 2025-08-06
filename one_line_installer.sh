@@ -57,8 +57,10 @@ echo "📥 Downloading SSH Tunnel Client..."
 wget -O ssh_tunnel_client.py "https://raw.githubusercontent.com/reza-ygb/ssh-tunnel-client/main/ssh_tunnel_client.py" || curl -o ssh_tunnel_client.py "https://raw.githubusercontent.com/reza-ygb/ssh-tunnel-client/main/ssh_tunnel_client.py" || {
     echo "❌ Failed to download main application"
     echo "   Please check your internet connection or install wget/curl"
-    exit 1
-}
+    echo "📦 Using embedded fallback version..."
+    
+    # Create embedded version
+    cat > ssh_tunnel_client.py << 'SCRIPT_EOF'
 #!/usr/bin/env python3
 """
 SSH Tunnel Client - Embedded Version
@@ -153,7 +155,7 @@ if __name__ == "__main__":
         app = SimpleTunnelClient()
         app.run()
 SCRIPT_EOF
-fi
+}
 
 # Make executable
 chmod +x ssh_tunnel_client.py
