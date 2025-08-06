@@ -1,0 +1,14 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Run SSH Tunnel Client",
+			"type": "shell",
+			"command": "sudo python3 ssh_tunnel_client.py",
+			"group": "build",
+			"isBackground": false,
+			"problemMatcher": [],
+			"args": []
+		}
+	]
+}
