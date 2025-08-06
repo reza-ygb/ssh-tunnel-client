@@ -637,9 +637,10 @@ class TunnelGUI:
                     self.root.after(0, lambda: self.log_message(f"❌ {message}"))
                     
             except Exception as e:
+                error_msg = str(e)
                 self.root.after(0, lambda: self.progress.stop())
                 self.root.after(0, lambda: self.test_btn.config(state='normal'))
-                self.root.after(0, lambda: messagebox.showerror("❌ خطا", f"خطا: {str(e)}"))
+                self.root.after(0, lambda: messagebox.showerror("❌ خطا", f"خطا: {error_msg}"))
                 
         threading.Thread(target=test_thread, daemon=True).start()
         
@@ -686,11 +687,12 @@ class TunnelGUI:
                     self.root.after(0, lambda: self.log_message(f"❌ خطا: {message}"))
                     
             except Exception as e:
+                error_msg = str(e)
                 self.root.after(0, lambda: self.progress.stop())
                 self.root.after(0, lambda: self.connect_btn.config(state='normal'))
                 self.root.after(0, lambda: self.status_var.set("❌ قطع شده"))
                 self.root.after(0, lambda: self.status_label.config(style='Error.TLabel'))
-                self.root.after(0, lambda: messagebox.showerror("❌ خطا", f"خطا: {str(e)}"))
+                self.root.after(0, lambda: messagebox.showerror("❌ خطا", f"خطا: {error_msg}"))
                 
         threading.Thread(target=connect_thread, daemon=True).start()
         
@@ -719,12 +721,13 @@ class TunnelGUI:
                     self.root.after(0, lambda: messagebox.showerror("❌ خطا", message))
                     
             except Exception as e:
+                error_msg = str(e)
                 self.root.after(0, lambda: self.progress.stop())
                 self.root.after(0, lambda: self.connect_btn.config(state='normal'))
                 self.root.after(0, lambda: self.status_var.set("❌ قطع شده"))
                 self.root.after(0, lambda: self.status_label.config(style='Error.TLabel'))
                 self.root.after(0, lambda: self.connect_btn.config(text="🚀 اتصال"))
-                self.root.after(0, lambda: messagebox.showerror("❌ خطا", f"خطا: {str(e)}"))
+                self.root.after(0, lambda: messagebox.showerror("❌ خطا", f"خطا: {error_msg}"))
                 
         threading.Thread(target=disconnect_thread, daemon=True).start()
         
