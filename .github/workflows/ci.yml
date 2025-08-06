@@ -11,13 +11,13 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: [3.6, 3.7, 3.8, 3.9, "3.10", "3.11"]
+        python-version: [3.8, 3.9, "3.10", "3.11", "3.12"]
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     
     - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v5
       with:
         python-version: ${{ matrix.python-version }}
     
@@ -40,18 +40,20 @@ jobs:
     
     - name: Check installer script
       run: |
-        bash -n one_line_installer.sh
+        # Test run.sh syntax (pure shell script)
         bash -n run.sh
+        # Test shell portion of one_line_installer.sh (mixed shell/python file)
+        head -61 one_line_installer.sh | bash -n
 
   security:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     
     - name: Set up Python
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v5
       with:
-        python-version: 3.9
+        python-version: "3.11"
     
     - name: Install security tools
       run: |
@@ -67,7 +69,7 @@ jobs:
         safety check --json --output safety-report.json || true
     
     - name: Upload security reports
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: security-reports
         path: |
@@ -78,7 +80,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        distro: [ubuntu:18.04, ubuntu:20.04, ubuntu:22.04, debian:10, debian:11]
+        distro: [ubuntu:20.04, ubuntu:22.04, ubuntu:24.04, debian:11, debian:12]
     
     container:
       image: ${{ matrix.distro }}
@@ -89,13 +91,13 @@ jobs:
         apt-get update
         apt-get install -y git python3 python3-pip curl wget
     
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     
     - name: Test installer script
       run: |
         chmod +x one_line_installer.sh
         # Test script syntax without actually installing
-        bash -n one_line_installer.sh
+        head -61 one_line_installer.sh | bash -n
     
     - name: Test application dependencies
       run: |
